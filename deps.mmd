@@ -1,0 +1,55 @@
+%% 箭头方向：使用方 --> 被依赖方
+%% 实线 = package.json 里的 dependencies（运行时直接依赖）
+%% 虚线 = peerDependencies / devDependencies（可选或仅开发期）
+flowchart LR
+    subgraph L0["L0 基础层（无内部依赖）"]
+        telemetry["telemetry<br/>pi-telemetry"]
+        schema["schema<br/>pi-schema"]
+        tui["tui<br/>pi-tui"]
+        codemode["codemode<br/>pi-codemode"]
+        mcp["mcp<br/>pi-mcp"]
+    end
+
+    subgraph L1["L1 对象运行时"]
+        chord["chord<br/>@earendil-works/chord"]
+    end
+
+    subgraph L2["L2 模型与智能体"]
+        ai["ai<br/>pi-ai"]
+        agent["agent<br/>pi-agent-core"]
+    end
+
+    subgraph L3["L3 持久化编排"]
+        durable["durable<br/>pi-durable"]
+    end
+
+    subgraph L4["L4 执行环境"]
+        env["env<br/>pi-env"]
+    end
+
+    subgraph L5["L5 应用层"]
+        codingagent["coding-agent<br/>pi-coding-agent"]
+    end
+
+    peer["esbuild / react / ws<br/>chord 的 peerDependencies（optional）"]
+
+    chord --> schema
+    chord --> telemetry
+    ai --> schema
+    ai --> telemetry
+    agent --> ai
+    agent --> schema
+    durable --> chord
+    durable --> ai
+    durable --> codemode
+    durable --> schema
+    durable --> telemetry
+    env --> chord
+    env --> durable
+    codingagent --> agent
+    codingagent --> ai
+    codingagent --> codemode
+    codingagent --> mcp
+    codingagent --> tui
+
+    chord -.->|peer, optional| peer
