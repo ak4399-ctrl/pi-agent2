@@ -215,3 +215,9 @@ flowchart LR
 - `codemode`：解决"能做什么"——在 quickjs 沙箱里执行 JS，唯一能力是调用被注入的工具，天然限制越权。
 
 三者结合，就是"在远端机器上、可恢复地、受权限约束地执行 agent 产出的代码"。
+
+---
+
+## 其它实验
+
+- 实践课3：Pi Agent 源码安装与编译 → [practice/03-Pi-Agent-source-build/report.md](practice/03-Pi-Agent-source-build/report.md)
